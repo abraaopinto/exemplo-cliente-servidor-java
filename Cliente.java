@@ -21,7 +21,7 @@ public class Cliente extends JFrame {
    {
       super( "Cliente" );
 
-      // repassa o endereÁo do servidor
+      // repassa o endere√ßo do servidor
       vServidor = host;
 
       Container container = getContentPane();
@@ -74,12 +74,12 @@ public class Cliente extends JFrame {
          encerrarConexao();
       }
 
-      // servidor encerra a conexao
+      // caso ocorra uma EOFException imprime no console
       catch ( EOFException eofException ) {
          System.out.println( "Server terminated connection" );
       }
 
-      // processa problemas de comunicaÁ„o do servidor
+      // caso ocorra uma IOException imprime no console a stacktrace
       catch ( IOException ioException ) {
          ioException.printStackTrace();
       }
@@ -92,7 +92,7 @@ public class Cliente extends JFrame {
       oosSaidaDados = new ObjectOutputStream(
          sCliente.getOutputStream() );
 
-      
+      // envia os dados
       oosSaidaDados.flush();
 
       // obtem o fluxo de entrada da mensagem
@@ -102,24 +102,24 @@ public class Cliente extends JFrame {
       jtaSaidaTexto.append( "\n[Adiquirido fluxos I/O]\n" );
    }
 
-   // conecta ao servidor
+   // metodo de conex√£o ao servidor
    private void conectarServidor() throws IOException
    {      
-      jtaSaidaTexto.setText( "[Esperando conex„o]\n" );
+      jtaSaidaTexto.setText( "[Esperando por conex√£o...]\n" );
 
       // cria o Socket para conectar se ao servidor
       sCliente = new Socket( 
          InetAddress.getByName( vServidor ), 5000 );
 
-      // exibe as informaÁıes de conex„o
+      // exibe as informa√ß√µes de conex√£o
       jtaSaidaTexto.append( "Conectado a: [ " +
          sCliente.getInetAddress().getHostName() + " ]" );
    }
 
-   // processa a conex„o com o servidor
+   // processa a conex√£o com o servidor
    private void processaConexao() throws IOException
    {
-      // abilita o jtfEntradaTexto para o cliente enviar menagem para o servidor
+      // habilita o jtfEntradaTexto para o cliente enviar menagem para o servidor
       jtfEntradaTexto.setEnabled( true );
 
       // processa a mensagem eviada pelo servidor
@@ -127,7 +127,7 @@ public class Cliente extends JFrame {
 
          // le a mensagem e a exibe no JTextArea
          try {
-            vMensagem = ( String ) oisEntradaDados.readObject();//ler os dados do canal de comunicaÁ„o
+            vMensagem = ( String ) oisEntradaDados.readObject();//ler os dados do canal de comunica√ß√£o
             jtaSaidaTexto.append("\n[Cliente] <--< ["+ vMensagem+"]" );
             jtaSaidaTexto.setCaretPosition( jtaSaidaTexto.getText().length() );
          }
@@ -141,10 +141,10 @@ public class Cliente extends JFrame {
 
    } 
 
-   // encerra a conex„o
+   // metodo responsavel por encerra a conex√£o
    private void encerrarConexao() throws IOException
    {
-      jtaSaidaTexto.append( "\n[!]Encerrada a Conex„o" );
+      jtaSaidaTexto.append( "\n[!]Encerrada a Conex√£o" );
       oosSaidaDados.close();
       oisEntradaDados.close();
       sCliente.close();
@@ -156,7 +156,7 @@ public class Cliente extends JFrame {
    {
       // envia a mensagem ao servidor
       try {
-         oosSaidaDados.writeObject(  pMessage );//grava a mensagem no canal de comunicaÁ„o
+         oosSaidaDados.writeObject(  pMessage );//grava a mensagem no canal de comunica√ß√£o
          oosSaidaDados.flush();//envia o fluxo para o outro lado
          jtaSaidaTexto.append( "\n[Cliente] >--> [" + pMessage + "]" );
       }
@@ -167,7 +167,7 @@ public class Cliente extends JFrame {
       }
    }
 
-   // executa aplicaÁ„o
+   // executa aplica√ß√£o
    public static void main( String args[] )
    {
       Cliente obj;//instancia um objeto da classe cliente
@@ -185,4 +185,4 @@ public class Cliente extends JFrame {
 
    }
 
-} // fim classe sClientee
+} // fim classe Cliente
